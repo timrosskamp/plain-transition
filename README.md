@@ -14,7 +14,7 @@ import { transition, easeIn, easeOut, easeInOut } from 'plain-transition';
 transition();
 ```
 
-### Via <script> declaration
+### Via `<script>` declaration
 
 ```html
 <script src="plain-transition.min.js"></script>
