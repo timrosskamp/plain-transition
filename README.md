@@ -36,7 +36,7 @@ transition({
 });
 ```
 
-When using the `plain-transition.min.js` bundle, all functions get bundles in the global `plainTransition` object:
+When using the `plain-transition.min.js` bundle, all functions get bundled in the global `plainTransition` object:
 
 ```javascript
 plainTransition.transition({
