@@ -62,22 +62,22 @@ transition({
 });
 ```
 
-**`from`** (integer)
+**`from`** (integer)  
 The starting value
 
-**`to`** (integer)
+**`to`** (integer)  
 The ending value
 
-**`duration`** (integer)
+**`duration`** (integer)  
 The duration in milliseconds
 
-**`easing`** (function)
+**`easing`** (function)  
 An easing function. Either a function provided one from this package or a custom one.
 
-**`onChange`** (function)
+**`onChange`** (function)  
 This function gets called everytime the value updates. Usually 60 times per second.
 
-**`onDone`** (function)
+**`onDone`** (function)  
 This function gets called once, when the transition is finished and in its final value.
 
 ## Browser support
