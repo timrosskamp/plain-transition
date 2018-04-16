@@ -1,6 +1,6 @@
 # plain-transition (WORK IN PROGRESS)
 
-The plain-transition package is a very simple functions thats allows to smoothly transition from one value to another.
+plain-transition is a very lightweight and simple function with no dependencies. It allows you to create a simple and smooth transition from one value to another. Nothing more, nothing less.
 
 ## Installation
 
@@ -19,10 +19,30 @@ transition();
 ```html
 <script src="plain-transition.min.js"></script>
 <script>
-    plainTransition.transition({
-        easing: plainTransition.easeIn
-    });
+    plainTransition.transition();
 </script>
+```
+
+## Usage
+
+When using a module bundler you can import the transition function and optionally an easing function if you want. Then you just need to call the transition function to start a transition:
+
+```javascript
+import { transition, easeInOut } from 'plain-transition';
+
+transition({
+    easing: easeInOut,
+    // ...options
+});
+```
+
+When using the `plain-transition.min.js` bundle, all functions get bundles in the global `plainTransition` object:
+
+```javascript
+plainTransition.transition({
+    easing: plainTransition.easeInOut,
+    // ...options
+});
 ```
 
 ## Options
