@@ -4,12 +4,25 @@ The plain-transition package is a very simple functions thats allows to smoothly
 
 ## Installation
 
+### Using a module bundler
+
 Install via npm: `npm install plain-transition --save-dev`
 
 ```javascript
 import { transition, easeIn, easeOut, easeInOut } from 'plain-transition';
 
 transition();
+```
+
+### Via <script> declaration
+
+```html
+<script src="plain-transition.min.js"></script>
+<script>
+    plainTransition.transition({
+        easing: plainTransition.easeIn
+    });
+</script>
 ```
 
 ## Options
