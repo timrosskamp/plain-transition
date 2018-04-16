@@ -29,19 +29,31 @@ function transition(_options) {
     var start = 0;
 
     var frame = function frame(time) {
+
+        // Set the inital timestamp
         if (start <= 0) {
             start = time;
         }
 
+        // Calculate the current progress in milliseconds
         var progress = time - start;
 
-        options.onChange(options.easing(Math.min(progress / options.duration, 1)) * (options.to - options.from) + options.from);
-
+        // Check if the transition time already passed the duration
         if (progress < options.duration) {
+            // Call the onChange event
+            options.onChange(options.easing(Math.min(progress / options.duration, 1)) * (options.to - options.from) + options.from);
+
             requestAnimationFrame(frame);
+        } else {
+            // Call the onChange the last time and ensure the last value emitted is the final value
+            options.onChange(options.to);
+
+            // Call the onDone event to finish this off
+            options.onDone();
         }
     };
 
+    // Start the transition
     requestAnimationFrame(frame);
 }
 
