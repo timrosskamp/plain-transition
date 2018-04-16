@@ -1,3 +1,5 @@
+export * from './easings.js';
+
 export function transition(_options){
     const options = {
         from: 0,
