@@ -82,3 +82,8 @@ This function gets called once, when the transition is finished and in its final
 
 ## Browser support
 
+* Internet Explorer 10+
+* Firefox 23+
+* Chrome 24+
+* Safari 7+
+* Opera 15+
