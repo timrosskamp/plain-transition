@@ -62,22 +62,28 @@ transition({
 });
 ```
 
-**`from`** (integer)  
-The starting value
+**`from`** integer *(default: 0)*  
+The transition starts with this value
 
-**`to`** (integer)  
-The ending value
+**`to`** integer *(default: 100)*  
+The transition will transition to this value and end with value
 
-**`duration`** (integer)  
-The duration in milliseconds
+**`duration`** integer *(default: 1000)*  
+The transition will take this much milliseconds
 
-**`easing`** (function)  
+**`easing`** function *(default: linear)*  
 An easing function. Either a function provided one from this package or a custom one.
 
-**`onChange`** (function)  
-This function gets called everytime the value updates. Usually 60 times per second.
+Built-in functions:
 
-**`onDone`** (function)  
+* easeIn
+* easeOut
+* easeInOut
+
+**`onChange`** function  
+This function gets called everytime the value updates. The first argument will be the current value.
+
+**`onDone`** function  
 This function gets called once, when the transition is finished and in its final value.
 
 ## Browser support
