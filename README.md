@@ -1,4 +1,4 @@
-# plain-transition (WORK IN PROGRESS)
+# plain-transition
 
 plain-transition is a very lightweight and simple function with no dependencies. It allows you to create a simple and smooth transition from one value to another. Nothing more, nothing less.
 
