@@ -1,6 +1,6 @@
 {
   "name": "plain-transition",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Do a transition from one value to another in JS",
   "main": "dist/transition.min.js",
   "jsnext:main": "dist/transition.es.js",
