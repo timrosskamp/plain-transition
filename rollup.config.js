@@ -14,10 +14,13 @@ export default [{
     ],
 }, {
     input: "src/transition.js",
-    output: {
+    output: [{
         file: "dist/transition.es.js",
         format: "es"
-    },
+    }, {
+        file: "test/transition.es.js",
+        format: "es"
+    }],
     plugins: [
         babel()
     ]

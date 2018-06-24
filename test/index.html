@@ -1,19 +1,34 @@
-<script type="module">
-    import { transition, easeInOut } from './transition.es.js';
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1 id="progress">0%</h1>
+        <button id="stop">Stop</button>
+        <script type="module">
+            import { transition, easeInOut } from './transition.es.js';
 
-    const $progress = document.querySelector('#progress');
+            const $progress = document.querySelector('#progress');
+            const $stop = document.querySelector('#stop');
 
-    $progress.addEventListener('click', e => {
-        transition({
-            from: 0,
-            to: 100,
-            duration: 3000,
-            easing: easeInOut,
-            onChange: value => {
-                $progress.innerHTML = value + '%';
-            }
-        });
-    });
-</script>
+            var prog = transition({
+                from: 0,
+                to: 100,
+                duration: 3000,
+                easing: easeInOut,
+                autostart: false,
+                onChange: value => {
+                    $progress.innerHTML = value + '%';
+                }
+            });
 
-<h1 id="progress">0%</h1>
+            $progress.addEventListener('click', e => {
+                prog.start();
+            });
+
+            $stop.addEventListener('click', e => {
+                prog.cancel();
+            });
+        </script>
+    </body>
+</html>

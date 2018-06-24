@@ -10,11 +10,30 @@ function easeInOut(t) {
     return -Math.cos(t * Math.PI) * 0.5 + 0.5;
 }
 
+var transitions = [];
+
+function animate(time) {
+    transitions.forEach(function (t, i) {
+        t._frame(time);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
 function transition(_options) {
+    var _this = this;
+
+    if (!(this instanceof transition)) {
+        return new transition(_options);
+    }
+
     var options = {
         from: 0,
         to: 100,
         duration: 1000,
+        autostart: true,
         easing: function easing(v) {
             return v;
         },
@@ -27,11 +46,21 @@ function transition(_options) {
     }
 
     var start = 0;
-    var canceled = false;
+    var started = options.autostart;
 
-    var frame = function frame(time) {
-        // Don't do anything, when this got canceled
-        if (canceled !== false) {
+    // Gets called at the end of the transition or manually by the user
+    this.cancel = function () {
+        // remove this transition from queue
+        transitions.splice(transitions.indexOf(this), 1);
+    };
+
+    this.start = function () {
+        started = true;
+    };
+
+    this._frame = function (time) {
+        // Don't do anything until this transition has started
+        if (started !== true) {
             return;
         }
 
@@ -47,25 +76,19 @@ function transition(_options) {
         if (progress < options.duration) {
             // Call the onChange event
             options.onChange(options.easing(Math.min(progress / options.duration, 1)) * (options.to - options.from) + options.from);
-
-            requestAnimationFrame(frame);
         } else {
             // Call the onChange the last time and ensure the last value emitted is the final value
             options.onChange(options.to);
 
             // Call the onDone event to finish this off
             options.onDone();
+
+            // Ensure nothing happens anymore
+            _this.cancel();
         }
     };
 
-    // Start the transition
-    requestAnimationFrame(frame);
-
-    return {
-        cancel: function cancel() {
-            canceled = true;
-        }
-    };
+    transitions.push(this);
 }
 
 export { transition, easeIn, easeOut, easeInOut };

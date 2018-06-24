@@ -7,7 +7,8 @@
   "module": "dist/transition.es.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c && cp dist/transition.es.js test/transition.es.js"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "files": [
     "dist"
