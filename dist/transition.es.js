@@ -27,8 +27,13 @@ function transition(_options) {
     }
 
     var start = 0;
+    var canceled = false;
 
     var frame = function frame(time) {
+        // Don't do anything, when this got canceled
+        if (canceled !== false) {
+            return;
+        }
 
         // Set the inital timestamp
         if (start <= 0) {
@@ -55,6 +60,12 @@ function transition(_options) {
 
     // Start the transition
     requestAnimationFrame(frame);
+
+    return {
+        cancel: function cancel() {
+            canceled = true;
+        }
+    };
 }
 
 export { transition, easeIn, easeOut, easeInOut };

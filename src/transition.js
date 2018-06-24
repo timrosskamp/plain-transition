@@ -10,13 +10,18 @@ export function transition(_options){
         onDone: () => {}
     }
 
-    for(const attr in _options){
+    for( let attr in _options ){
         options[attr] = _options[attr];
     }
 
     let start = 0;
+    let canceled = false;
 
     const frame = time => {
+        // Don't do anything, when this got canceled
+        if( canceled !== false ){
+            return;
+        }
 
         // Set the inital timestamp
         if( start <= 0 ){
@@ -27,7 +32,7 @@ export function transition(_options){
         const progress = time - start;
 
         // Check if the transition time already passed the duration
-        if(progress < options.duration){
+        if( progress < options.duration ){
             // Call the onChange event
             options.onChange( ( options.easing( Math.min( progress / options.duration, 1 ) ) * ( options.to - options.from ) ) + options.from );
 
@@ -43,4 +48,10 @@ export function transition(_options){
 
     // Start the transition
     requestAnimationFrame(frame);
+
+    return {
+        cancel(){
+            canceled = true;
+        }
+    }
 }
