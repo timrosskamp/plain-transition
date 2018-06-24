@@ -1,0 +1,89 @@
+## Installation
+
+### Using a module bundler
+
+Install via npm: `npm install plain-transition --save-dev`
+
+```javascript
+import { transition, easeIn, easeOut, easeInOut } from 'plain-transition';
+
+transition();
+```
+
+### Via `<script>` declaration
+
+```html
+<script src="plain-transition.min.js"></script>
+<script>
+    plainTransition.transition();
+</script>
+```
+
+## Usage
+
+When using a module bundler you can import the transition function and optionally an easing function if you want. Then you just need to call the transition function to start a transition:
+
+```javascript
+import { transition, easeInOut } from 'plain-transition';
+
+transition({
+    easing: easeInOut,
+    // ...options
+});
+```
+
+When using the `plain-transition.min.js` bundle, all functions get bundled in the global `plainTransition` object:
+
+```javascript
+plainTransition.transition({
+    easing: plainTransition.easeInOut,
+    // ...options
+});
+```
+
+## Options
+
+```javascript
+transition({
+    from: 0,
+    to: 100,
+    duration: 1000,
+    easing: easeIn,
+    onChange: value => {
+
+    },
+    onDone: () => {
+
+    }
+});
+```
+
+**`from`** integer *(default: 0)*  
+The transition starts with this value
+
+**`to`** integer *(default: 100)*  
+The transition will transition to this value and end with value
+
+**`duration`** integer *(default: 1000)*  
+The transition will take this much milliseconds
+
+**`easing`** function *(default: linear)*  
+An easing function. Either a function provided one from this package or a custom one.
+
+Built-in functions:
+
+* easeIn
+* easeOut
+* easeInOut
+
+**`onChange`** function  
+This function gets called everytime the value updates. The first argument will be the current value.
+
+**`onDone`** function  
+This function gets called once, when the transition is finished and in its final value.
+
+## Browser support
+
+| Chrome | Safari | IE / Edge | Firefox | Opera |
+| --- | --- | --- | --- | --- |
+| 24+ | 6+ | 10+ | 23+ | 15+ |
