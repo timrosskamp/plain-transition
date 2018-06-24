@@ -1,0 +1,19 @@
+<script type="module">
+    import { transition, easeInOut } from './transition.es.js';
+
+    const $progress = document.querySelector('#progress');
+
+    $progress.addEventListener('click', e => {
+        transition({
+            from: 0,
+            to: 100,
+            duration: 3000,
+            easing: easeInOut,
+            onChange: value => {
+                $progress.innerHTML = value + '%';
+            }
+        });
+    });
+</script>
+
+<h1 id="progress">0%</h1>
