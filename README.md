@@ -81,7 +81,7 @@ Built-in functions:
 * easeOut
 * easeInOut
 
-**`autostart`** boolean *(default: true)*
+**`autostart`** boolean *(default: true)*  
 Wheather this transition should start immediately or when transition.start() gets called.
 
 **`onChange`** function  
@@ -92,10 +92,10 @@ This function gets called once, when the transition is finished and in its final
 
 ## API
 
-**`transition.start()`**
+**`myTransition.start()`**  
 This starts the transition. This is only relevant when `autostart: false` is set in the options.
 
-**`transition.cancel()`**
+**`myTransition.cancel()`**  
 This stops the transition immediately. once it's canceled, it can't be started again.
 
 ## Browser support
