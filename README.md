@@ -30,7 +30,7 @@ When using a module bundler you can import the transition function and optionall
 ```javascript
 import { transition, easeInOut } from 'plain-transition';
 
-transition({
+const myTransition = transition({
     easing: easeInOut,
     // ...options
 });
@@ -39,7 +39,7 @@ transition({
 When using the `plain-transition.min.js` bundle, all functions get bundled in the global `plainTransition` object:
 
 ```javascript
-plainTransition.transition({
+var myTransition = plainTransition.transition({
     easing: plainTransition.easeInOut,
     // ...options
 });
@@ -53,6 +53,7 @@ transition({
     to: 100,
     duration: 1000,
     easing: easeIn,
+    autostart: true,
     onChange: value => {
 
     },
@@ -80,11 +81,22 @@ Built-in functions:
 * easeOut
 * easeInOut
 
+**`autostart`** boolean *(default: true)*
+Wheather this transition should start immediately or when transition.start() gets called.
+
 **`onChange`** function  
 This function gets called everytime the value updates. The first argument will be the current value.
 
 **`onDone`** function  
 This function gets called once, when the transition is finished and in its final value.
+
+## API
+
+**`transition.start()`**
+This starts the transition. This is only relevant when `autostart: false` is set in the options.
+
+**`transition.cancel()`**
+This stops the transition immediately. once it's canceled, it can't be started again.
 
 ## Browser support
 
