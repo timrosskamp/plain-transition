@@ -1,7 +1,7 @@
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 
-export default {
+export default [{
     input: "src/transition.js",
     output: {
         file: "dist/transition.min.js",
@@ -11,5 +11,14 @@ export default {
     plugins: [
         babel(),
         uglify()
+    ],
+}, {
+    input: "src/transition.js",
+    output: {
+        file: "dist/transition.es.js",
+        format: "es"
+    },
+    plugins: [
+        babel()
     ]
-}
+}]
