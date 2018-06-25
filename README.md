@@ -4,9 +4,9 @@ plain-transition is a very lightweight and simple function with no dependencies.
 
 ## Features
 
-* Small build size (1kb minified)
+* Very small build size (1kb minified)
 * Suitable for every kind of animation (DOM, CSS, Canvas, etc.)
-* Runs `requestAnimationFrame` only if transitions running and not all the time.
+* Runs `requestAnimationFrame` only during transitions (and not continuously).
 
 ## Installation
 
