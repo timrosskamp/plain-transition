@@ -54,6 +54,10 @@ function transition(_options) {
     };
 
     this.start = function () {
+        if (queue.indexOf(_this) > -1) {
+            return;
+        }
+
         // Reset the timer
         start = 0;
 

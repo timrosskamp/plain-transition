@@ -40,6 +40,10 @@ export function transition(_options){
     }
 
     this.start = () => {
+        if( queue.indexOf(this) > -1 ){
+            return;
+        }
+
         // Reset the timer
         start = 0;
 
