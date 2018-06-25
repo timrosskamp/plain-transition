@@ -30,7 +30,6 @@ function transition(_options) {
     }
 
     var start = 0;
-    var canceled = false;
 
     var options = {
         from: 0,
@@ -49,22 +48,22 @@ function transition(_options) {
     }
 
     // Gets called at the end of the transition or manually by the user
-    this.cancel = function () {
+    this.stop = function () {
         // remove this transition from queue
-        canceled = true;
         queue.splice(queue.indexOf(_this), 1);
     };
 
     this.start = function () {
-        if (canceled !== true) {
-            // add the transition to the render queue
-            queue.push(_this);
+        // Reset the timer
+        start = 0;
 
-            // start render loop if it's empty, witch means it's stopped
-            if (queue.length == 0) {
-                requestAnimationFrame(render);
-            }
+        // start render loop if it's empty, witch means it's stopped
+        if (queue.length <= 0) {
+            requestAnimationFrame(render);
         }
+
+        // add the transition to the render queue
+        queue.push(_this);
     };
 
     this._frame = function (time) {
@@ -88,7 +87,7 @@ function transition(_options) {
             options.onDone();
 
             // Ensure nothing happens anymore
-            _this.cancel();
+            _this.stop();
         }
     };
 
