@@ -1,7 +1,5 @@
 export * from './easings.js';
 
-let running = false;
-
 const queue = [];
 
 function render(time){
@@ -10,10 +8,8 @@ function render(time){
     });
 
     if( queue.length > 0 ){
-        return requestAnimationFrame(render);
+        requestAnimationFrame(render);
     }
-
-    running = false;
 }
 
 export function transition(_options){
@@ -50,9 +46,8 @@ export function transition(_options){
             // add the transition to the render queue
             queue.push(this);
 
-            // start render loop, unless it's already running
-            if( running !== true ){
-                running = true;
+            // start render loop if it's empty, witch means it's stopped
+            if( queue.length == 0 ){
                 requestAnimationFrame(render);
             }
         }

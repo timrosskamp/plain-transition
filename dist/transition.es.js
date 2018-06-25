@@ -10,8 +10,6 @@ function easeInOut(t) {
     return -Math.cos(t * Math.PI) * 0.5 + 0.5;
 }
 
-var running = false;
-
 var queue = [];
 
 function render(time) {
@@ -20,10 +18,8 @@ function render(time) {
     });
 
     if (queue.length > 0) {
-        return requestAnimationFrame(render);
+        requestAnimationFrame(render);
     }
-
-    running = false;
 }
 
 function transition(_options) {
@@ -64,9 +60,8 @@ function transition(_options) {
             // add the transition to the render queue
             queue.push(_this);
 
-            // start render loop, unless it's already running
-            if (running !== true) {
-                running = true;
+            // start render loop if it's empty, witch means it's stopped
+            if (queue.length == 0) {
                 requestAnimationFrame(render);
             }
         }
