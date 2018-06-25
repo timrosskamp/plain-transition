@@ -2,6 +2,12 @@
 
 plain-transition is a very lightweight and simple function with no dependencies. It allows you to create a simple and smooth transition from one value to another. Nothing more, nothing less.
 
+## Features
+
+* Small build size (1kb minified)
+* Suitable for every kind of animation (DOM, CSS, Canvas, etc.)
+* Runs `requestAnimationFrame` only if transitions running and not all the time.
+
 ## Installation
 
 ### Using a module bundler
