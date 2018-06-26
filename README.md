@@ -99,7 +99,7 @@ This function gets called once, when the transition is finished and in its final
 ## API
 
 **`myTransition.start()`**  
-This starts the transition. A transition can be restarted if `start()` gets called after the transition is done. A transition can not be restarted while its runnung.
+This starts the transition. A transition can be restarted if `start()` gets called after the transition is done. A transition can not be restarted while its runnung. This function doesn't need to be called it `autoplay` is set to `true`, witch it is by default.
 
 **`myTransition.stop()`**  
 This stops the transition immediately.
