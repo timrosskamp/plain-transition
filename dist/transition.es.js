@@ -10,17 +10,17 @@ function easeInOut(t) {
     return -Math.cos(t * Math.PI) * 0.5 + 0.5;
 }
 
-var transitions = [];
+var queue = [];
 
-function animate(time) {
-    transitions.forEach(function (t, i) {
+function render(time) {
+    queue.forEach(function (t) {
         t._frame(time);
     });
 
-    requestAnimationFrame(animate);
+    if (queue.length > 0) {
+        requestAnimationFrame(render);
+    }
 }
-
-requestAnimationFrame(animate);
 
 function transition(_options) {
     var _this = this;
@@ -28,6 +28,8 @@ function transition(_options) {
     if (!(this instanceof transition)) {
         return new transition(_options);
     }
+
+    var start = 0;
 
     var options = {
         from: 0,
@@ -45,25 +47,30 @@ function transition(_options) {
         options[attr] = _options[attr];
     }
 
-    var start = 0;
-    var started = options.autostart;
-
     // Gets called at the end of the transition or manually by the user
-    this.cancel = function () {
+    this.stop = function () {
         // remove this transition from queue
-        transitions.splice(transitions.indexOf(this), 1);
+        queue.splice(queue.indexOf(_this), 1);
     };
 
     this.start = function () {
-        started = true;
-    };
-
-    this._frame = function (time) {
-        // Don't do anything until this transition has started
-        if (started !== true) {
+        if (queue.indexOf(_this) > -1) {
             return;
         }
 
+        // Reset the timer
+        start = 0;
+
+        // start render loop if it's empty, witch means it's stopped
+        if (queue.length <= 0) {
+            requestAnimationFrame(render);
+        }
+
+        // add the transition to the render queue
+        queue.push(_this);
+    };
+
+    this._frame = function (time) {
         // Set the inital timestamp
         if (start <= 0) {
             start = time;
@@ -74,21 +81,23 @@ function transition(_options) {
 
         // Check if the transition time already passed the duration
         if (progress < options.duration) {
-            // Call the onChange event
+            // Emit the onChange event
             options.onChange(options.easing(Math.min(progress / options.duration, 1)) * (options.to - options.from) + options.from);
         } else {
-            // Call the onChange the last time and ensure the last value emitted is the final value
+            // Emit the onChange the last time and ensure the last value emitted is the final value
             options.onChange(options.to);
 
-            // Call the onDone event to finish this off
+            // Emit the onDone event
             options.onDone();
 
             // Ensure nothing happens anymore
-            _this.cancel();
+            _this.stop();
         }
     };
 
-    transitions.push(this);
+    if (options.autostart) {
+        this.start();
+    }
 }
 
 export { transition, easeIn, easeOut, easeInOut };

@@ -2,6 +2,12 @@
 
 plain-transition is a very lightweight and simple function with no dependencies. It allows you to create a simple and smooth transition from one value to another. Nothing more, nothing less.
 
+## Features
+
+* Very small build size (1kb minified)
+* Suitable for every kind of animation (DOM, CSS, Canvas, etc.)
+* Runs `requestAnimationFrame` only during transitions (and not continuously).
+
 ## Installation
 
 ### Using a module bundler
@@ -93,10 +99,10 @@ This function gets called once, when the transition is finished and in its final
 ## API
 
 **`myTransition.start()`**  
-This starts the transition. This is only relevant when `autostart: false` is set in the options.
+This starts the transition. A transition can be restarted if `start()` gets called after the transition is done. A transition can not be restarted while its runnung.
 
-**`myTransition.cancel()`**  
-This stops the transition immediately. once it's canceled, it can't be started again.
+**`myTransition.stop()`**  
+This stops the transition immediately.
 
 ## Browser support
 

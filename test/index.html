@@ -11,7 +11,7 @@
             const $progress = document.querySelector('#progress');
             const $stop = document.querySelector('#stop');
 
-            var prog = transition({
+            const prog = transition({
                 from: 0,
                 to: 100,
                 duration: 3000,
@@ -27,8 +27,8 @@
             });
 
             $stop.addEventListener('click', e => {
-                prog.cancel();
-            });
+                prog.stop();
+            })
         </script>
     </body>
 </html>

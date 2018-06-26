@@ -1,21 +1,23 @@
 export * from './easings.js';
 
-const transitions = [];
+const queue = [];
 
-function animate(time){
-    transitions.forEach((t, i) => {
+function render(time){
+    queue.forEach(t => {
         t._frame(time);
     });
 
-    requestAnimationFrame(animate);
+    if( queue.length > 0 ){
+        requestAnimationFrame(render);
+    }
 }
-
-requestAnimationFrame(animate);
 
 export function transition(_options){
     if( !(this instanceof transition) ){
         return new transition(_options);
     }
+
+    let start = 0;
 
     const options = {
         from: 0,
@@ -31,25 +33,30 @@ export function transition(_options){
         options[attr] = _options[attr];
     }
 
-    let start = 0;
-    let started = options.autostart;
-
     // Gets called at the end of the transition or manually by the user
-    this.cancel = function(){
+    this.stop = () => {
         // remove this transition from queue
-        transitions.splice(transitions.indexOf(this), 1);
+        queue.splice(queue.indexOf(this), 1);
     }
 
-    this.start = function(){
-        started = true;
-    }
-
-    this._frame = time => {
-        // Don't do anything until this transition has started
-        if( started !== true ){
+    this.start = () => {
+        if( queue.indexOf(this) > -1 ){
             return;
         }
 
+        // Reset the timer
+        start = 0;
+
+        // start render loop if it's empty, witch means it's stopped
+        if( queue.length <= 0 ){
+            requestAnimationFrame(render);
+        }
+
+        // add the transition to the render queue
+        queue.push(this);
+    }
+
+    this._frame = time => {
         // Set the inital timestamp
         if( start <= 0 ){
             start = time;
@@ -60,19 +67,21 @@ export function transition(_options){
 
         // Check if the transition time already passed the duration
         if( progress < options.duration ){
-            // Call the onChange event
+            // Emit the onChange event
             options.onChange( ( options.easing( Math.min( progress / options.duration, 1 ) ) * ( options.to - options.from ) ) + options.from );
         }else{
-            // Call the onChange the last time and ensure the last value emitted is the final value
+            // Emit the onChange the last time and ensure the last value emitted is the final value
             options.onChange(options.to);
 
-            // Call the onDone event to finish this off
+            // Emit the onDone event
             options.onDone();
 
             // Ensure nothing happens anymore
-            this.cancel();
+            this.stop();
         }
     }
 
-    transitions.push(this);
+    if( options.autostart ){
+        this.start();
+    }
 }
