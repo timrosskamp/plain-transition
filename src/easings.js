@@ -1,11 +1,11 @@
 export function easeIn(t){
-    return -Math.cos(t * Math.PI * 0.5) + 1;
+    return t * t;
 }
 
 export function easeOut(t){
-    return Math.sin(t * Math.PI * 0.5);
+    return t * ( 2 - t );
 }
 
 export function easeInOut(t){
-    return -Math.cos(t * Math.PI) * 0.5 + 0.5;
+    return -2 * ( t * t * t ) + 3 * ( t * t );
 }
